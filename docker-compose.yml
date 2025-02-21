@@ -1,0 +1,26 @@
+version: '3.7'
+
+services:
+  web:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - FLASK_ENV=development
+    depends_on:
+      - db
+    networks:
+      - app_network
+
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: merch_shop
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge
